@@ -5,5 +5,5 @@ A Zynq-Based SSD1306 OLED Driver
 2. 设置Y17和Y16的电平水平为LVCMOS33，默认为PULLUP。  
 3. 生成bit流文件，然后export hardware
 ## 软件准备
-1. 新建helloworld工程。  
-2. 导入OLED_Init.h文件。 
+1. 新建空工程。  
+2. 导入OLED_Init.h和.c文件。 
