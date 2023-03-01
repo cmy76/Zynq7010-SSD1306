@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<sdkproject:SdkProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdkproject="http://www.xilinx.com/sdkproject" name="OLED_Driver" location="D:/VitisIDE/SSD1306/SSD1306_Driver/OLED_Driver" platform="D:/VitisIDE/SSD1306/SSD1306_Driver/SSD1306/export/SSD1306/SSD1306.xpfm" platformUID="xilinx:::0.0(custom)" systemProject="OLED_Driver_system" sysConfig="SSD1306" runtime="cpp" cpu="standalone_ps7_cortexa9_0" cpuInstance="ps7_cortexa9_0" os="standalone" mssSignature="87b29a25dca6a5672881c3b6749e0b2f">
+  <configuration name="Debug" id="xilinx.gnu.armv7.exe.debug.1429894245">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+    <lastBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <configuration name="Release" id="xilinx.gnu.armv7.exe.release.375214683" dirty="true">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <template appTemplateName="empty_application"/>
+</sdkproject:SdkProject>

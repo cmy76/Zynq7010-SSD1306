@@ -1,0 +1,95 @@
+#include "OLED_Init.h"
+
+s32 OLED_SendCMD(XIicPs * iicPs, u8 CMD){
+	s32 status;
+	u8 Cfg_Ptr[2] = {0x00, CMD};
+	status = XIicPs_MasterSendPolled(iicPs, Cfg_Ptr, 2, OLED_ADR);
+	if (status != XST_SUCCESS)
+	{
+		printf("configure register failed! \n");
+		return XST_FAILURE;
+	}
+	usleep(8000);
+	return status;
+}
+
+s32 OLED_Init(XIicPs * iicPs){
+	s32 status;
+	status = OLED_SendCMD(iicPs, DISPLAY_OFF);
+	status = OLED_SendCMD(iicPs, SET_LOW_COLUMN_ADDRESS);
+	status = OLED_SendCMD(iicPs, SET_HIGH_COLUMN_ADDRESS);
+	status = OLED_SendCMD(iicPs, SET_START_LINE_ADDRESS);
+	status = OLED_SendCMD(iicPs, SET_PAGE_ADDRESS);
+	status = OLED_SendCMD(iicPs, CONTRACT_CONTROL);
+	status = OLED_SendCMD(iicPs, D128);
+	status = OLED_SendCMD(iicPs, REMAP);
+	status = OLED_SendCMD(iicPs, NORMAL_DISPLAY);
+
+	status = OLED_SendCMD(iicPs, MUL_RATIO);
+	status = OLED_SendCMD(iicPs, DUTY32_1);
+	status = OLED_SendCMD(iicPs, COM_SCAN_DIRECTION);
+	status = OLED_SendCMD(iicPs, SET_DIS_OFFSET);
+	status = OLED_SendCMD(iicPs, NO_OFFSET);
+
+	status = OLED_SendCMD(iicPs, CLOCK_DIV);
+	status = OLED_SendCMD(iicPs, 0x80);
+
+	status = OLED_SendCMD(iicPs, AREA_COLOR_MODE_OFF);
+	status = OLED_SendCMD(iicPs, 0x05);
+
+	status = OLED_SendCMD(iicPs, PRE_CHARGE_PERIOD);
+	status = OLED_SendCMD(iicPs, 0xF1);
+
+	status = OLED_SendCMD(iicPs, PIN_CONFIG);
+	status = OLED_SendCMD(iicPs, 0x12);
+
+	status = OLED_SendCMD(iicPs, VCOMH);
+	status = OLED_SendCMD(iicPs, 0x30);
+
+	status = OLED_SendCMD(iicPs, CHARG_PUMP_EN);
+	status = OLED_SendCMD(iicPs, 0x14);
+	status = OLED_SendCMD(iicPs, TURN_ON);
+	return status;
+}
+
+s32 OLED_SendData(XIicPs * iicPs, u8 data)
+{
+	s32 status;
+	u8 Cfg_Ptr[2] = {0x40, data};
+	status = XIicPs_MasterSendPolled(iicPs, Cfg_Ptr, 2, OLED_ADR);
+	if (status != XST_SUCCESS)
+	{
+		printf("configure register failed! \n");
+		return XST_FAILURE;
+	}
+	usleep(8000);
+	return status;
+}
+
+s32 OLED_DisplayOn(XIicPs * iicPs){
+	s32 status;
+	status = OLED_SendCMD(iicPs, 0x8D);
+	status = OLED_SendCMD(iicPs, 0x14);
+	status = OLED_SendCMD(iicPs, 0xAF);
+	return status;
+}
+
+s32 OLED_Clear(XIicPs * iicPs){
+	u8 i, n;
+	for(i=0;i<8;i++){
+		OLED_SendCMD(iicPs, 0xb0+i);
+		OLED_SendCMD(iicPs, 0x00);
+		OLED_SendCMD(iicPs, 0x10);
+		for(n=0;n<128;n++){
+			OLED_SendData(iicPs, 0);
+		}
+	}
+}
+
+s32 OLED_SetPos(XIicPs * iicPs, u8 x, u8 y){
+	s32 status;
+	status = OLED_SendCMD(iicPs, 0xb0+y);
+	status = OLED_SendCMD(iicPs, ((x&0xf0)>>4)|0x10);
+	status = OLED_SendCMD(iicPs, (x&0x0f));
+	return status;
+}

@@ -1,0 +1,14 @@
+#include "OLED_Init.h"
+
+s32 OLED_SendCMD(XIicPs * iicPs, u8 CMD){
+	s32 status;
+	u8 Cfg_Ptr[2] = {0x00, CMD};
+	status = XIicPs_MasterSendPolled(iicPs, Cfg_Ptr, 2, OLED_ADR);
+	if (status != XST_SUCCESS)
+	{
+		printf("configure register failed! \n");
+		return XST_FAILURE;
+	}
+	usleep(8000);
+	return status;
+}
