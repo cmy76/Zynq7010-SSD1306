@@ -7,3 +7,12 @@ A Zynq-Based SSD1306 OLED Driver
 ## 软件准备
 1. 新建空工程。  
 2. 导入OLED_Init.h和.c文件。 
+
+## Hardware Preparation
+1. Create a bare-metal project using Vivado 2022.1 and add EMIO I2C with MAKE EXTERNAL to pins Y17 and Y16.
+2. Set the voltage level of pins Y17 and Y16 to LVCMOS33 with PULLUP as default.
+3. Generate the bitstream file and export hardware.
+
+## Software Preparation
+1. Create a new empty project.
+2. Import OLED_Init.h and .c files.
